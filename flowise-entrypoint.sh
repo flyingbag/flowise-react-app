@@ -2,7 +2,7 @@
 set -e
 
 # Install desired modules into Flowise’s plugins directory
-npm install $TOOL_FUNCTION_EXTERNAL_DEP \
+npm install $(echo "$TOOL_FUNCTION_EXTERNAL_DEP" | tr ',' ' ') \
   --prefix /usr/local/lib/node_modules/flowise \
   --save \
   --loglevel error
