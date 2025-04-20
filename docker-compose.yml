@@ -9,6 +9,7 @@ services:
       - /home/ubuntu/.flowise:/root/.flowise
       - ./.flowise/api.json:/root/.flowise/api.json:ro
       - ./flowise-entrypoint.sh:/usr/local/bin/flowise-entrypoint.sh:ro
+      - flowise_modules:/usr/local/lib/node_modules/flowise
     entrypoint: ["sh", "/usr/local/bin/flowise-entrypoint.sh"]
     ports:
       - "3000:3000"
@@ -23,3 +24,5 @@ services:
       - .env
     ports:
       - "3001:3000"
+volumes:
+  flowise_modules:
