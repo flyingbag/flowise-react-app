@@ -26,6 +26,7 @@ services:
           --loglevel error && \
         flowise start
   frontend:
+    image: ${FRONTEND_IMAGE:-flowise-react-app:latest}
     build:
       context: .
       args:
