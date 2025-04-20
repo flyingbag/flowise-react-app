@@ -3,6 +3,8 @@ FROM node:20-alpine AS build
 
 # Set working directory
 WORKDIR /app
+# Increase Node’s memory limit to avoid OOM during build
+ENV NODE_OPTIONS="--max_old_space_size=1024"
 
 # Install dependencies
 COPY package.json package-lock.json ./
