@@ -29,8 +29,8 @@ services:
     build:
       context: .
       args:
-        REACT_APP_CHATFLOW_ID: ${CHATFLOW_ID}
-        REACT_APP_API_HOST: ${REACT_APP_API_HOST}
+        REACT_APP_CHATFLOW_ID: "${CHATFLOW_ID:-}"
+        REACT_APP_API_HOST:     "${REACT_APP_API_HOST:-}"
     env_file:
       - .env
     ports:
