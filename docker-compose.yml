@@ -20,7 +20,7 @@ services:
       - sh
       - -c
     command: |
-      npm install $${MODULES[*]} \
+      npm install $(echo "$${TOOL_FUNCTION_EXTERNAL_DEP}" | tr ',' ' ') \
         --prefix /usr/local/lib/node_modules/flowise \
         --save \
         --loglevel error && \
