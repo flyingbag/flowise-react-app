@@ -3,22 +3,15 @@ services:
     image: flowiseai/flowise
     container_name: flowise
     restart: unless-stopped
-    ports:
-      - "3000:3000"
     env_file:
       - .env
     volumes:
       - /home/ubuntu/.flowise:/root/.flowise
       - ./.flowise/api.json:/root/.flowise/api.json:ro
-    entrypoint:
-      - sh
-      - -c
-    command: |
-      npm install $(echo "$TOOL_FUNCTION_EXTERNAL_DEP" | tr ',' ' ') \
-        --prefix /usr/local/lib/node_modules/flowise \
-        --save \
-        --loglevel error && \
-      flowise start
+      - ./flowise-entrypoint.sh:/usr/local/bin/flowise-entrypoint.sh:ro
+    entrypoint: ["sh", "/usr/local/bin/flowise-entrypoint.sh"]
+    ports:
+      - "3000:3000"
   frontend:
     image: ${FRONTEND_IMAGE:-flowise-react-app:latest}
     build:
