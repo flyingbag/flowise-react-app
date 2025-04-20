@@ -1,0 +1,35 @@
+services:
+  flowise:
+    image: flowiseai/flowise
+    container_name: flowise
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - DEBUG=true
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - APIKEY_PATH=/root/.flowise
+      - APIKEY_STORAGE_TYPE=json
+      - TOOL_FUNCTION_EXTERNAL_DEP=jsonpath,mssql,mustache
+    volumes:
+      - /home/ubuntu/.flowise:/root/.flowise
+      - ./.flowise/api.json:/root/.flowise/api.json:ro
+    command:
+      - sh
+      - -c
+      - |
+        npm install $${MODULES[*]} \
+          --prefix /usr/local/lib/node_modules/flowise \
+          --save \
+          --loglevel error && \
+        flowise start
+  frontend:
+    build:
+      context: .
+      args:
+        REACT_APP_CHATFLOW_ID: ${CHATFLOW_ID}
+        REACT_APP_API_HOST: ${REACT_APP_API_HOST}
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
