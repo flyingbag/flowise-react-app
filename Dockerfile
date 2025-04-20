@@ -8,7 +8,8 @@ ENV NODE_OPTIONS="--max_old_space_size=2048"
 
 # Install dependencies
 COPY package.json package-lock.json ./
-RUN npm ci
+# Install dependencies with reduced output to lower memory usage
+RUN npm ci --no-audit --progress=false --quiet
 
 # Copy application source
 COPY public ./public
