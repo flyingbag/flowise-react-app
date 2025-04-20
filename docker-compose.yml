@@ -1,6 +1,6 @@
 services:
   flowise:
-    image: flowiseai/flowise
+    image: flyingbag/flowise
     container_name: flowise
     restart: unless-stopped
     env_file:
