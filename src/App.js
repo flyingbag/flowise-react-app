@@ -4,8 +4,8 @@ import { FullPageChat } from "flowise-embed-react";
 const App = () => {
     return (
         <FullPageChat
-            chatflowid="00000000-0000-0000-0000-000000000000"
-            apiHost="http://localhost:3000"
+            chatflowid={process.env.REACT_APP_CHATFLOW_ID}
+            apiHost={process.env.REACT_APP_API_HOST}
         />
     );
 };
